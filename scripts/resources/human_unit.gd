@@ -2,6 +2,7 @@ extends Resource
 class_name HumanUnit
 
 @export var unit_name: String = "Human Soldier"
+@export var cost: int = 5
 @export var max_hp: int = 50
 @export var attack: int = 5
 @export var defense: int = 2

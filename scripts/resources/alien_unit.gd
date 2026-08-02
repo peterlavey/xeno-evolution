@@ -9,6 +9,7 @@ enum Element { NONE, FIRE, WATER, EARTH, AIR, ELECTRIC }
 @export var element: Element = Element.NONE
 
 @export_group("Stats")
+@export var cost: int = 10
 @export var max_hp: int = 150
 @export var attack: int = 15
 @export var defense: int = 6

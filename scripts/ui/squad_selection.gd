@@ -1,42 +1,71 @@
 extends Control
 
-@onready var unit_list = $VBoxContainer/UnitList
-@onready var squad_list = $VBoxContainer/SquadList
+@onready var unit_list = $VBoxContainer/CollectionScroll/UnitList
+@onready var squad_list = $VBoxContainer/SquadScroll/SquadList
+
+var card_scene = null
 
 var current_squad: Array[AlienUnit] = []
 
 func _ready():
+	print("SquadSelection: _ready called")
+	var path = "res://scenes/ui/unit_card_v2.tscn"
+	print("SquadSelection: Attempting to load card_scene from ", path)
+	card_scene = ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE)
+	if card_scene == null:
+		push_error("SquadSelection: FAILED TO LOAD card_scene via load(). Trying fallback...")
+		card_scene = ResourceLoader.load(path)
+		
+	if card_scene:
+		print("SquadSelection: card_scene loaded successfully")
+	else:
+		push_error("SquadSelection: CRITICAL - FAILED TO LOAD card_scene from " + path)
+		# Intento de cargar OTRA escena para diagnosticar si es un problema general
+		var test_path = "res://scenes/ui/world_map.tscn"
+		var test_scene = load(test_path)
+		if test_scene:
+			print("SquadSelection: DIAGNOSTIC - Successfully loaded world_map.tscn")
+		else:
+			push_error("SquadSelection: DIAGNOSTIC - FAILED to load world_map.tscn too!")
+	
 	refresh_lists()
 
 func refresh_lists():
 	print("SquadSelection: Refreshing lists. Squad size: ", current_squad.size())
 	# Limpiar listas
 	for child in unit_list.get_children():
+		unit_list.remove_child(child)
 		child.queue_free()
 	for child in squad_list.get_children():
+		squad_list.remove_child(child)
 		child.queue_free()
 	
 	# Si la colección está vacía, añadir algunos de prueba
 	if CollectionManager.collection.is_empty():
+		print("SquadSelection: Collection is empty, setting up mock collection")
 		setup_mock_collection()
+	
+	print("SquadSelection: Collection size: ", CollectionManager.collection.size())
 
 	# Mostrar colección disponible
 	for unit in CollectionManager.collection:
 		var count_in_squad = current_squad.filter(func(u): return u == unit).size()
-		print("Checking unit: ", unit.unit_name, " - In squad: ", count_in_squad)
-		if count_in_squad < 1: # Si quisiéramos permitir múltiples, cambiaríamos esto
-			var btn = Button.new()
-			btn.text = unit.unit_name
-			btn.pressed.connect(_add_to_squad.bind(unit))
-			unit_list.add_child(btn)
-			print("Added button for: ", unit.unit_name)
+		if count_in_squad < 1:
+			if card_scene:
+				var card = card_scene.instantiate()
+				unit_list.add_child(card)
+				card.setup(unit)
+				card.card_clicked.connect(_add_to_squad)
+			else:
+				push_error("SquadSelection: card_scene is NULL for " + unit.unit_name)
 			
 	# Mostrar escuadrón actual
 	for unit in current_squad:
-		var btn = Button.new()
-		btn.text = unit.unit_name + " (En Escuadrón)"
-		btn.pressed.connect(_remove_from_squad.bind(unit))
-		squad_list.add_child(btn)
+		if card_scene:
+			var card = card_scene.instantiate()
+			squad_list.add_child(card)
+			card.setup(unit)
+			card.card_clicked.connect(_remove_from_squad)
 
 func setup_mock_collection():
 	var u1 = AlienUnit.new()

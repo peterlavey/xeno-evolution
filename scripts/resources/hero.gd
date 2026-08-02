@@ -6,6 +6,7 @@ class_name Hero
 @export var power_level: int = 1
 
 @export_group("Stats")
+@export var cost: int = 50
 @export var max_hp: int = 200
 @export var attack: int = 20
 @export var defense: int = 10

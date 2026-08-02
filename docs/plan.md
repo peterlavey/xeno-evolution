@@ -9,6 +9,7 @@ Focus on the underlying architecture for units, heroes, and powers.
 - **Hero & Power Data** (Linked to Req 4, 5): Define data structures for heroes and the powers they yield. (Priority: High)
 - **Basic Persistence** (Linked to Req 1): Save/Load system for unit collection and permanent upgrades. (Priority: Medium)
 - **Sprite Standard** (Linked to Req 2): Establish a consistent sprite size (64x64) and create placeholder assets for development. (Priority: High)
+- **Unit Card UI (TCG Style)** (Linked to Req 1): Visual representation of units with name, image, cost, stats, and abilities. (Priority: Medium) [DONE]
 
 ## Phase 2: Isometric Combat Engine
 Develop the automatic battle system.

@@ -11,7 +11,12 @@ func start_invasion(country: Country):
 	print("GameManager: starting invasion for ", country.country_name if country else "NULL")
 	current_country = country
 	# Por ahora, simplemente cargamos la escena de selección de escuadrón
-	var err = get_tree().change_scene_to_file("res://scenes/ui/squad_selection.tscn")
+	var path = "res://scenes/ui/squad_selection.tscn"
+	if not FileAccess.file_exists(path):
+		print("GameManager: FATAL - Scene not found: ", path)
+		return
+		
+	var err = get_tree().change_scene_to_file(path)
 	if err != OK:
 		print("GameManager: Error changing to squad selection: ", err)
 

@@ -1,0 +1,100 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/unit_card_v2.gd" id="1_script"]
+
+[node name="UnitCard" type="PanelContainer"]
+custom_minimum_size = Vector2(160, 240)
+offset_right = 160.0
+offset_bottom = 240.0
+script = ExtResource("1_script")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Header" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="UnitName" type="Label" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Unit Name"
+
+[node name="CostLabel" type="Label" parent="VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "$0"
+
+[node name="StatsGrid" type="GridContainer" parent="VBox"]
+layout_mode = 2
+columns = 2
+
+[node name="HPLab" type="Label" parent="VBox/StatsGrid"]
+layout_mode = 2
+text = "HP:"
+
+[node name="HPValue" type="Label" parent="VBox/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="ATKLab" type="Label" parent="VBox/StatsGrid"]
+layout_mode = 2
+text = "ATK:"
+
+[node name="ATKValue" type="Label" parent="VBox/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="DEFLab" type="Label" parent="VBox/StatsGrid"]
+layout_mode = 2
+text = "DEF:"
+
+[node name="DEFValue" type="Label" parent="VBox/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="SPDLab" type="Label" parent="VBox/StatsGrid"]
+layout_mode = 2
+text = "SPD:"
+
+[node name="SPDValue" type="Label" parent="VBox/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="RNGLab" type="Label" parent="VBox/StatsGrid"]
+layout_mode = 2
+text = "RNG:"
+
+[node name="RNGValue" type="Label" parent="VBox/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="AbilitiesContainer" type="VBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="AbilitiesText" type="Label" parent="VBox/AbilitiesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "None"
+autowrap_mode = 3
+
+[node name="IconContainer" type="CenterContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="UnitIcon" type="TextureRect" parent="VBox/IconContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+expand_mode = 1
+stretch_mode = 5

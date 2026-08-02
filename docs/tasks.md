@@ -25,6 +25,10 @@
     - Description: Buffed base stats for Alien units to reflect technological superiority (approx 3x stronger than standard humans). Updated resources and mock data.
     - Plan Link: Unit Data Structure
     - Requirement Link: Req 1
+- [x] **Task 1.7: TCG Card System**
+    - Description: Implemented a visual card system for units, showing name, cost, image, stats, and abilities. Fixed persistent scene loading errors by renaming resources to `unit_card_v2.tscn`, removing UIDs, cleaning `.godot` cache, and using `ResourceLoader.load()` with `CACHE_MODE_IGNORE` to bypass corrupted cache entries. Restored full card functionality after successful diagnostic "Hello World" phase. Added display for permanently evolved powers.
+    - Plan Link: Unit Card UI (TCG Style)
+    - Requirement Link: Req 1
 
 ## Phase 2: Combat & AI
 - [x] **Task 2.1: Setup Isometric Battle Scene**
