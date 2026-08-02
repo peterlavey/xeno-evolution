@@ -27,6 +27,10 @@ func _ready():
 		if "visual_scale" in data:
 			sprite.scale = Vector2(data.visual_scale, data.visual_scale)
 		
+		# Aplicar modulación de color si existe
+		if "battle_modulate" in data:
+			sprite.modulate = data.battle_modulate
+		
 		if data.battle_sprite:
 			sprite.texture = data.battle_sprite
 		else:

@@ -21,3 +21,4 @@ class_name Hero
 @export_group("Visuals")
 @export var icon: Texture2D
 @export var battle_sprite: Texture2D
+@export var battle_modulate: Color = Color.WHITE

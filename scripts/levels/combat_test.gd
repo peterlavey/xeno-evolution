@@ -26,9 +26,9 @@ func setup_real_battle():
 		var new_poly = NavigationPolygon.new()
 		var outline = PackedVector2Array([
 			Vector2(0, 0),
-			Vector2(1152, 0),
-			Vector2(1152, 648),
-			Vector2(0, 648)
+			Vector2(720, 0),
+			Vector2(720, 1280),
+			Vector2(0, 1280)
 		])
 		new_poly.add_outline(outline)
 		NavigationServer2D.bake_from_source_geometry_data(new_poly, NavigationMeshSourceGeometryData2D.new())
@@ -41,10 +41,10 @@ func setup_real_battle():
 		var unit_data = squad[i % squad.size()]
 		var unit = unit_scene.instantiate()
 		unit.data = unit_data
-		# Posicionamiento en cuadrícula en el lado izquierdo
-		var row = i % 10
-		var col = i / 10
-		unit.position = Vector2(100 + col * 50, 100 + row * 50)
+		# Posicionamiento en cuadrícula en la parte inferior
+		var row = i / 6
+		var col = i % 6
+		unit.position = Vector2(100 + col * 100, 900 + row * 100)
 		unit.add_to_group("units")
 		units_node.add_child(unit)
 	
@@ -58,11 +58,12 @@ func setup_real_battle():
 	hero_data.max_hp = 200
 	hero_data.attack = 25
 	hero_data.visual_scale = 0.8
+	hero_data.battle_modulate = Color(1.0, 0.8, 0.0) # Dorado para diferenciarlo
 	
 	var hero = unit_scene.instantiate()
 	hero.data = hero_data
 	hero.is_hero = true
-	hero.position = Vector2(1000, 324)
+	hero.position = Vector2(360, 100)
 	hero.add_to_group("units")
 	units_node.add_child(hero)
 	
@@ -77,10 +78,10 @@ func setup_real_battle():
 		var soldier = unit_scene.instantiate()
 		soldier.data = human_data
 		soldier.is_hero = true # Pertenecen al bando de los humanos
-		# Posicionamiento en cuadrícula en el lado derecho
-		var row = i % 10
-		var col = i / 10
-		soldier.position = Vector2(900 - col * 50, 100 + row * 50)
+		# Posicionamiento en cuadrícula en la parte superior
+		var row = i / 6
+		var col = i % 6
+		soldier.position = Vector2(100 + col * 100, 200 + row * 100)
 		soldier.add_to_group("units")
 		units_node.add_child(soldier)
 	
@@ -128,7 +129,7 @@ func setup_mock_battle():
 	var alien = unit_scene.instantiate()
 	alien.data = alien_data
 	alien.is_hero = false
-	alien.position = Vector2(100, 100)
+	alien.position = Vector2(360, 1000)
 	alien.add_to_group("units")
 	$Units.add_child(alien)
 	
@@ -136,7 +137,7 @@ func setup_mock_battle():
 	hero.data = hero_data
 	hero.is_hero = true
 	hero.attack_range = 300.0 # Rango largo para probar proyectiles
-	hero.position = Vector2(400, 400)
+	hero.position = Vector2(360, 200)
 	hero.add_to_group("units")
 	$Units.add_child(hero)
 	

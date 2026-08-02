@@ -18,7 +18,7 @@
     - Plan Link: Basic Persistence
     - Requirement Link: Req 1
 - [x] **Task 1.5: Create Base Visual Assets**
-    - Description: Establish sprite size standards and create placeholder PNGs for units and environment.
+    - Description: Establish sprite size standard (64x64) and create placeholder PNGs for units and environment.
     - Plan Link: Sprite Standard
     - Requirement Link: Req 2
 
@@ -36,7 +36,7 @@
     - Plan Link: Unit AI (Melee/Ranged)
     - Requirement Link: Req 2
 - [x] **Task 2.4: Combat Health & Damage System**
-    - Description: Logic for units taking damage and dying. Fixed property access error for human units. Added physical collision shapes to units.
+    - Description: Logic for units taking damage and dying. Fixed property access error for human units. Added physical collision shapes to units. Added color modulation for unit differentiation.
     - Plan Link: Combat Logic
     - Requirement Link: Req 2
 
@@ -63,3 +63,13 @@
     - Description: Interface to apply a stolen power to a specific unit.
     - Plan Link: Evolution System
     - Requirement Link: Req 5
+
+## Phase 5: Mobile Optimization
+- [x] **Task 5.1: Configure Portrait Orientation**
+    - Description: Set window resolution to 720x1280 and set orientation to portrait in project.godot.
+    - Plan Link: Portrait Mode Support
+    - Requirement Link: Req 2
+- [x] **Task 5.2: Adjust Battle Scene for Vertical Layout**
+    - Description: Reposition units and camera for top-down vertical combat flow. Player units (Aliens) spawn at bottom, enemies (Humans) at top.
+    - Plan Link: Portrait Mode Support
+    - Requirement Link: Req 2

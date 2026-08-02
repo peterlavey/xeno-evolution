@@ -26,3 +26,4 @@ enum Element { NONE, FIRE, WATER, EARTH, AIR, ELECTRIC }
 @export_group("Visuals")
 @export var icon: Texture2D
 @export var battle_sprite: Texture2D
+@export var battle_modulate: Color = Color.WHITE

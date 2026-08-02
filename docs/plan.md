@@ -8,7 +8,7 @@ Focus on the underlying architecture for units, heroes, and powers.
 - **Unit Data Structure** (Linked to Req 1): Implement `Resource`-based units (Alien, Hero, Human) with stats, rarity, and ability slots. Support visual scaling for large-scale battles. (Priority: High)
 - **Hero & Power Data** (Linked to Req 4, 5): Define data structures for heroes and the powers they yield. (Priority: High)
 - **Basic Persistence** (Linked to Req 1): Save/Load system for unit collection and permanent upgrades. (Priority: Medium)
-- **Sprite Standard** (Linked to Req 2): Establish a consistent sprite size (128x128) and create placeholder assets for development. (Priority: High)
+- **Sprite Standard** (Linked to Req 2): Establish a consistent sprite size (64x64) and create placeholder assets for development. (Priority: High)
 
 ## Phase 2: Isometric Combat Engine
 Develop the automatic battle system.
@@ -25,6 +25,10 @@ Connect battles to the progression system.
 The core loop of stealing and applying powers.
 - **Abduction Sequence** (Linked to Req 4): Post-battle hero capture mechanics. (Priority: Medium) [DONE]
 - **Evolution System** (Linked to Req 5): Interface and logic for applying extracted powers to alien units. (Priority: High) [DONE]
+
+## Phase 5: Mobile Optimization
+Adapt the game for vertical mobile devices.
+- **Portrait Mode Support** (Linked to Req 2): Configure project for 720x1280 resolution and adjust combat layouts for vertical flow. (Priority: Medium) [DONE]
 
 ## Dependencies & Risks
 - **Dependency**: Unit AI depends on a functional isometric navigation system.

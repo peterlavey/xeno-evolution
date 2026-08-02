@@ -9,3 +9,4 @@ class_name HumanUnit
 @export var attack_range: float = 40.0
 @export var visual_scale: float = 0.5
 @export var battle_sprite: Texture2D
+@export var battle_modulate: Color = Color.WHITE
