@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/combat_test.gd" id="1_combat_test"]
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_combat_test")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = NavigationPolygon.new()
+
+[node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
+format = 2
+
+[node name="Units" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
