@@ -2,11 +2,11 @@
 
 ## Phase 1: Setup & Core Data
 - [x] **Task 1.1: Define Unit Resource**
-    - Description: Create a Godot `Resource` class for Alien Units. Includes `attack_range` stat.
+    - Description: Create a Godot `Resource` class for Alien Units. Includes `attack_range` and `visual_scale` stats.
     - Plan Link: Unit Data Structure
     - Requirement Link: Req 1
-- [x] **Task 1.2: Define Hero Resource**
-    - Description: Create a Godot `Resource` class for Heroes. Includes `attack_range` stat.
+- [x] **Task 1.2: Define Hero & Human Resources**
+    - Description: Create Godot `Resource` classes for Heroes and Human Soldiers. Includes `visual_scale` for army size simulation.
     - Plan Link: Hero & Power Data
     - Requirement Link: Req 4
 - [x] **Task 1.3: Define Power Resource**
@@ -24,7 +24,7 @@
 
 ## Phase 2: Combat & AI
 - [x] **Task 2.1: Setup Isometric Battle Scene**
-    - Description: Create a base scene with an isometric TileMap or NavigationRegion. Fixed Parse Error, added Camera2D and adjusted unit positions for visibility.
+    - Description: Create a base scene with an isometric TileMap or NavigationRegion. Supports large battles (60+ units).
     - Plan Link: Isometric Grid & Navigation
     - Requirement Link: Req 2
 - [x] **Task 2.2: Implement Base Unit AI**
@@ -36,7 +36,7 @@
     - Plan Link: Unit AI (Melee/Ranged)
     - Requirement Link: Req 2
 - [x] **Task 2.4: Combat Health & Damage System**
-    - Description: Logic for units taking damage and dying. Added physical collision shapes to units.
+    - Description: Logic for units taking damage and dying. Fixed property access error for human units. Added physical collision shapes to units.
     - Plan Link: Combat Logic
     - Requirement Link: Req 2
 

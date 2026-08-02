@@ -5,9 +5,10 @@
 
 ## 1. Unit & Card System
 1. **User Story:** As a player, I want to collect and manage diverse alien units so that I can build a specialized squad for different planetary invasions.
-   - **Acceptance Criteria:** WHEN viewing the collection THEN the system SHALL display each unit's name, rarity (Common to Mythic), stats (HP, Attack, Defense, Speed, Element), and special abilities.
+   - **Acceptance Criteria:** WHEN viewing the collection THEN the system SHALL display each unit's name, rarity (Common to Mythic), stats (HP, Attack, Defense, Speed, Element, Attack Range, Visual Scale), and special abilities.
    - **Acceptance Criteria:** WHEN a unit is acquired THEN it SHALL be stored in a persistent collection.
    - **Acceptance Criteria:** WHEN a power is applied THEN it SHALL permanently modify the unit's attributes or behavior.
+   - **Acceptance Criteria:** WHEN units are displayed in combat THEN the system SHALL respect their individual visual scaling (e.g., humans smaller than heroes).
 
 ## 2. Combat System (Auto-Battler)
 2. **User Story:** As a player, I want to deploy my squad in isometric battles so that I can see my strategic preparations play out automatically.
@@ -19,7 +20,7 @@
 ## 3. World Map & Countries
 3. **User Story:** As a player, I want to choose which country to invade so that I can manage my progression and target specific rewards.
    - **Acceptance Criteria:** WHEN viewing the world map THEN the system SHALL show countries with specific difficulty levels, enemy types, and potential hero rewards.
-   - **Acceptance Criteria:** WHEN a country is selected THEN the system SHALL display its resistance level and unique powers available for extraction.
+   - **Acceptance Criteria:** WHEN a country is selected THEN the system SHALL display its resistance level (Army size and Hero presence) and unique powers available for extraction.
 
 ## 4. Super-Heroes & Abduction
 4. **User Story:** As a player, I want to defeat and abduct super-heroes so that I can gain access to their unique powers.

@@ -22,6 +22,11 @@ func _ready():
 	if data:
 		current_hp = data.max_hp
 		attack_range = data.attack_range
+		
+		# Aplicar escala visual si existe
+		if "visual_scale" in data:
+			sprite.scale = Vector2(data.visual_scale, data.visual_scale)
+		
 		if data.battle_sprite:
 			sprite.texture = data.battle_sprite
 		else:
@@ -29,6 +34,8 @@ func _ready():
 			var placeholder_path = "res://assets/sprites/aliens/placeholder_alien.png"
 			if is_hero:
 				placeholder_path = "res://assets/sprites/heroes/placeholder_hero.png"
+			elif data is HumanUnit:
+				placeholder_path = "res://assets/sprites/humans/placeholder_human.png"
 			
 			if FileAccess.file_exists(placeholder_path):
 				sprite.texture = load(placeholder_path)
@@ -149,7 +156,7 @@ func perform_attack(delta):
 			if is_ranged:
 				shoot_projectile(damage)
 			else:
-				print("%s ataca a %s causando %d de daño (Melee)" % [data.unit_name if not is_hero else data.hero_name, target.data.unit_name if not target.is_hero else target.data.hero_name, damage])
+				print("%s ataca a %s causando %d de daño (Melee)" % [get_unit_name(), target.get_unit_name(), damage])
 				target.take_damage(damage)
 			
 			time_since_last_attack = 0.0
@@ -162,15 +169,26 @@ func shoot_projectile(damage: int):
 		proj.direction = global_position.direction_to(target.global_position)
 		proj.global_position = global_position
 		get_parent().add_child(proj)
-		print("%s dispara a %s causando %d de daño (Ranged)" % [data.unit_name if not is_hero else data.hero_name, target.data.unit_name if not target.is_hero else target.data.hero_name, damage])
+		print("%s dispara a %s causando %d de daño (Ranged)" % [get_unit_name(), target.get_unit_name(), damage])
 
 func take_damage(amount: int):
 	current_hp -= amount
-	print("%s recibe %d de daño. HP restante: %d" % [data.unit_name if not is_hero else data.hero_name, amount, current_hp])
+	print("%s recibe %d de daño. HP restante: %d" % [get_unit_name(), amount, current_hp])
 	if current_hp <= 0:
 		die()
 
 func die():
-	print("%s ha muerto" % [data.unit_name if not is_hero else data.hero_name])
+	print("%s ha muerto" % [get_unit_name()])
 	current_state = State.DEAD
 	queue_free()
+
+func get_unit_name() -> String:
+	if not data:
+		return "Unknown Unit"
+	
+	if "hero_name" in data:
+		return data.hero_name
+	if "unit_name" in data:
+		return data.unit_name
+		
+	return "Unnamed Unit"

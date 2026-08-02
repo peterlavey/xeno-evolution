@@ -11,6 +11,7 @@ class_name Hero
 @export var defense: int = 10
 @export var speed: int = 15
 @export var attack_range: float = 50.0
+@export var visual_scale: float = 0.8
 @export var element: AlienUnit.Element = AlienUnit.Element.NONE
 
 @export_group("Lootable Powers")

@@ -2,6 +2,7 @@ extends Node2D
 
 var alien_res = preload("res://scripts/resources/alien_unit.gd")
 var hero_res = preload("res://scripts/resources/hero.gd")
+var human_res = preload("res://scripts/resources/human_unit.gd")
 var unit_scene = preload("res://scenes/characters/battle_unit.tscn")
 
 func _ready():
@@ -11,7 +12,7 @@ func _ready():
 		setup_real_battle()
 
 func setup_real_battle():
-	print("CombatTest: Setting up real battle")
+	print("CombatTest: Setting up real battle with large armies")
 	# Instanciar escuadrón del jugador
 	var units_node = $Units
 	if not units_node:
@@ -23,7 +24,6 @@ func setup_real_battle():
 	if nav_region and nav_region.navigation_polygon == null:
 		print("CombatTest: Creating default NavigationPolygon")
 		var new_poly = NavigationPolygon.new()
-		# Añadir un contorno básico (puedes ajustarlo según tu nivel)
 		var outline = PackedVector2Array([
 			Vector2(0, 0),
 			Vector2(1152, 0),
@@ -31,38 +31,60 @@ func setup_real_battle():
 			Vector2(0, 648)
 		])
 		new_poly.add_outline(outline)
-		
-		# Forma moderna de generar polígonos (Godot 4.x)
 		NavigationServer2D.bake_from_source_geometry_data(new_poly, NavigationMeshSourceGeometryData2D.new())
-		
 		nav_region.navigation_polygon = new_poly
-		print("CombatTest: NavigationPolygon baked. Bounds: 1152x648")
 		
-	var i = 0
-	for unit_data in GameManager.selected_squad:
+	# Spawning 30 Aliens (Player side)
+	# Usamos las unidades del squad seleccionadas, si hay pocas, las repetimos para el test de volumen
+	var squad = GameManager.selected_squad
+	for i in range(30):
+		var unit_data = squad[i % squad.size()]
 		var unit = unit_scene.instantiate()
 		unit.data = unit_data
-		# Posicionamiento más centrado en la cámara
-		unit.position = Vector2(250, 200 + (i * 100))
+		# Posicionamiento en cuadrícula en el lado izquierdo
+		var row = i % 10
+		var col = i / 10
+		unit.position = Vector2(100 + col * 50, 100 + row * 50)
 		unit.add_to_group("units")
 		units_node.add_child(unit)
-		print("CombatTest: Instantiated alien: ", unit_data.unit_name)
-		i += 1
 	
-	# Instanciar enemigos basados en el país (por ahora fijos para el test)
+	# Spawning Enemies (Human Army)
+	# 1 Hero + 29 Humans
+	var country_name = GameManager.current_country.country_name if GameManager.current_country else "Earth"
+	
+	# The Hero
 	var hero_data = hero_res.new()
-	hero_data.hero_name = "Guardian of " + (GameManager.current_country.country_name if GameManager.current_country else "Earth")
-	hero_data.max_hp = 150
-	hero_data.attack = 10
+	hero_data.hero_name = "Guardian of " + country_name
+	hero_data.max_hp = 200
+	hero_data.attack = 25
+	hero_data.visual_scale = 0.8
 	
 	var hero = unit_scene.instantiate()
 	hero.data = hero_data
 	hero.is_hero = true
-	# Posición enemiga más centrada
-	hero.position = Vector2(850, 324)
+	hero.position = Vector2(1000, 324)
 	hero.add_to_group("units")
 	units_node.add_child(hero)
-	print("CombatTest: Instantiated hero: ", hero_data.hero_name)
+	
+	# The Human Army (29 soldiers)
+	for i in range(29):
+		var human_data = human_res.new()
+		human_data.unit_name = "Soldier " + str(i + 1)
+		human_data.max_hp = 40
+		human_data.attack = 5
+		human_data.visual_scale = 0.5
+		
+		var soldier = unit_scene.instantiate()
+		soldier.data = human_data
+		soldier.is_hero = true # Pertenecen al bando de los humanos
+		# Posicionamiento en cuadrícula en el lado derecho
+		var row = i % 10
+		var col = i / 10
+		soldier.position = Vector2(900 - col * 50, 100 + row * 50)
+		soldier.add_to_group("units")
+		units_node.add_child(soldier)
+	
+	print("CombatTest: Spawned 30 Aliens vs 1 Hero and 29 Human Soldiers")
 
 func _process(_delta):
 	check_battle_status()
