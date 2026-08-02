@@ -13,6 +13,7 @@ enum Element { NONE, FIRE, WATER, EARTH, AIR, ELECTRIC }
 @export var attack: int = 10
 @export var defense: int = 5
 @export var speed: int = 10
+@export var attack_range: float = 50.0
 
 @export_group("Abilities")
 @export var special_abilities: Array[Resource] = []

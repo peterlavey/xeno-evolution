@@ -18,13 +18,13 @@ Develop the automatic battle system.
 
 ## Phase 3: World Map & Invasion Loop
 Connect battles to the progression system.
-- **World Map UI** (Linked to Req 3): Country selection and difficulty display. (Priority: Medium)
-- **Invasion Flow** (Linked to Req 3): Squad selection -> Battle -> Result. (Priority: Medium)
+- **World Map UI** (Linked to Req 3): Country selection and difficulty display. (Priority: Medium) [DONE]
+- **Invasion Flow** (Linked to Req 3): Squad selection -> Battle -> Result. (Priority: Medium) [DONE]
 
 ## Phase 4: Abduction & Evolution
 The core loop of stealing and applying powers.
-- **Abduction Sequence** (Linked to Req 4): Post-battle hero capture mechanics. (Priority: Medium)
-- **Evolution System** (Linked to Req 5): Interface and logic for applying extracted powers to alien units. (Priority: High)
+- **Abduction Sequence** (Linked to Req 4): Post-battle hero capture mechanics. (Priority: Medium) [DONE]
+- **Evolution System** (Linked to Req 5): Interface and logic for applying extracted powers to alien units. (Priority: High) [DONE]
 
 ## Dependencies & Risks
 - **Dependency**: Unit AI depends on a functional isometric navigation system.

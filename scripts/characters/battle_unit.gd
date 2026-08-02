@@ -5,20 +5,39 @@ class_name BattleUnit
 @export var is_hero: bool = false
 @export var speed: float = 100.0
 @export var attack_range: float = 50.0
+@export var is_ranged: bool = false
+@export var projectile_scene: PackedScene = preload("res://scenes/characters/projectile.tscn")
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
-enum State { IDLE, SEEKING, ATTACKING, DEAD }
+enum State { IDLE, SEEKING, ATTACKING, KITING, DEAD }
 var current_state: State = State.IDLE
 var current_hp: int = 0
 var target: BattleUnit = null
 
+var min_ranged_dist = 150.0
+
 func _ready():
 	if data:
 		current_hp = data.max_hp
+		attack_range = data.attack_range
 		if data.battle_sprite:
 			sprite.texture = data.battle_sprite
+		else:
+			# Asignar un placeholder por defecto si no hay textura
+			var placeholder_path = "res://assets/sprites/aliens/placeholder_alien.png"
+			if is_hero:
+				placeholder_path = "res://assets/sprites/heroes/placeholder_hero.png"
+			
+			if FileAccess.file_exists(placeholder_path):
+				sprite.texture = load(placeholder_path)
+			else:
+				push_warning("BattleUnit: Placeholder not found at " + placeholder_path)
+		
+		# Determinar si es a distancia basado en el rango
+		if attack_range > 100:
+			is_ranged = true
 	
 	# Configurar colisiones segun equipo
 	if is_hero:
@@ -43,16 +62,36 @@ func _physics_process(delta):
 				return
 				
 			var dist = global_position.distance_to(target.global_position)
+			
+			if is_ranged and dist < min_ranged_dist:
+				current_state = State.KITING
+				return
+
 			if dist <= attack_range:
 				current_state = State.ATTACKING
 			else:
 				move_towards_target(delta)
+		State.KITING:
+			if not is_instance_valid(target) or target.current_state == State.DEAD:
+				current_state = State.SEEKING
+				return
+			
+			var dist = global_position.distance_to(target.global_position)
+			if dist > min_ranged_dist + 50:
+				current_state = State.SEEKING
+			else:
+				move_away_from_target(delta)
 		State.ATTACKING:
 			if not is_instance_valid(target) or target.current_state == State.DEAD:
 				current_state = State.SEEKING
 				return
 				
 			var dist = global_position.distance_to(target.global_position)
+			
+			if is_ranged and dist < min_ranged_dist:
+				current_state = State.KITING
+				return
+
 			if dist > attack_range:
 				current_state = State.SEEKING
 			else:
@@ -76,11 +115,21 @@ func find_target():
 		target = closest_target
 		current_state = State.SEEKING
 
-func move_towards_target(delta):
+func move_towards_target(_delta):
 	navigation_agent.target_position = target.global_position
 	if navigation_agent.is_navigation_finished():
 		return
 		
+	var next_path_pos = navigation_agent.get_next_path_position()
+	var new_velocity = global_position.direction_to(next_path_pos) * speed
+	velocity = new_velocity
+	move_and_slide()
+
+func move_away_from_target(_delta):
+	var dir = target.global_position.direction_to(global_position)
+	var escape_pos = global_position + dir * 100
+	navigation_agent.target_position = escape_pos
+	
 	var next_path_pos = navigation_agent.get_next_path_position()
 	var new_velocity = global_position.direction_to(next_path_pos) * speed
 	velocity = new_velocity
@@ -96,9 +145,24 @@ func perform_attack(delta):
 			var damage = 10 # Default
 			if data:
 				damage = data.attack
-			print("%s ataca a %s causando %d de daño" % [data.unit_name if not is_hero else data.hero_name, target.data.unit_name if not target.is_hero else target.data.hero_name, damage])
-			target.take_damage(damage)
+			
+			if is_ranged:
+				shoot_projectile(damage)
+			else:
+				print("%s ataca a %s causando %d de daño (Melee)" % [data.unit_name if not is_hero else data.hero_name, target.data.unit_name if not target.is_hero else target.data.hero_name, damage])
+				target.take_damage(damage)
+			
 			time_since_last_attack = 0.0
+
+func shoot_projectile(damage: int):
+	if projectile_scene:
+		var proj = projectile_scene.instantiate()
+		proj.damage = damage
+		proj.target = target
+		proj.direction = global_position.direction_to(target.global_position)
+		proj.global_position = global_position
+		get_parent().add_child(proj)
+		print("%s dispara a %s causando %d de daño (Ranged)" % [data.unit_name if not is_hero else data.hero_name, target.data.unit_name if not target.is_hero else target.data.hero_name, damage])
 
 func take_damage(amount: int):
 	current_hp -= amount
