@@ -21,6 +21,10 @@
     - Description: Establish sprite size standard (64x64) and create placeholder PNGs for units and environment.
     - Plan Link: Sprite Standard
     - Requirement Link: Req 2
+- [x] **Task 1.6: Unit Stat Rebalancing (Alien Superiority)**
+    - Description: Buffed base stats for Alien units to reflect technological superiority (approx 3x stronger than standard humans). Updated resources and mock data.
+    - Plan Link: Unit Data Structure
+    - Requirement Link: Req 1
 
 ## Phase 2: Combat & AI
 - [x] **Task 2.1: Setup Isometric Battle Scene**
@@ -38,6 +42,14 @@
 - [x] **Task 2.4: Combat Health & Damage System**
     - Description: Implemented modular `HealthComponent` with signals, knockback, and Shader-based white flash effect.
     - Plan Link: Combat Logic
+    - Requirement Link: Req 2
+- [x] **Task 2.5: Human Unit Specialization**
+    - Description: Implemented specialized human units (Soldier, Tank, Sniper) with unique stats and behaviors. Added explosive projectile logic for area-of-effect attacks. Fixed identifier error for team property in battle units.
+    - Plan Link: Unit AI (Melee/Ranged)
+    - Requirement Link: Req 2
+- [x] **Task 2.6: Organic Movement**
+    - Description: Implemented randomized speed variations, asynchronous navigation updates, and target offsets to make unit movement feel natural and less synchronized.
+    - Plan Link: Unit AI (Melee/Ranged)
     - Requirement Link: Req 2
 
 ## Phase 3: World & Progression

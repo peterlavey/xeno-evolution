@@ -9,13 +9,13 @@ enum Element { NONE, FIRE, WATER, EARTH, AIR, ELECTRIC }
 @export var element: Element = Element.NONE
 
 @export_group("Stats")
-@export var max_hp: int = 100
-@export var attack: int = 10
-@export var defense: int = 5
-@export var speed: int = 10
-@export var attack_range: float = 50.0
-@export var visual_scale: float = 0.6
-@export var knockback_force: float = 50.0
+@export var max_hp: int = 150
+@export var attack: int = 15
+@export var defense: int = 6
+@export var speed: int = 12
+@export var attack_range: float = 60.0
+@export var visual_scale: float = 0.7
+@export var knockback_force: float = 60.0
 
 @export_group("Abilities")
 @export var special_abilities: Array[Resource] = []

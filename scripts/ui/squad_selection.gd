@@ -41,12 +41,16 @@ func refresh_lists():
 func setup_mock_collection():
 	var u1 = AlienUnit.new()
 	u1.unit_name = "Xeno Grunt"
-	u1.attack = 12
+	u1.max_hp = 150
+	u1.attack = 15
+	u1.knockback_force = 60.0
 	
 	var u2 = AlienUnit.new()
 	u2.unit_name = "Xeno Spitter"
-	u2.attack = 8
-	u2.attack_range = 250
+	u2.max_hp = 120
+	u2.attack = 12
+	u2.attack_range = 350
+	u2.knockback_force = 40.0
 	
 	CollectionManager.add_unit(u1)
 	CollectionManager.add_unit(u2)

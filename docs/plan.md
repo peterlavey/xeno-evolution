@@ -5,7 +5,7 @@ Establish a robust foundation for "Xeno Evolution" by implementing a data-driven
 
 ## Phase 1: Core Data & Unit Systems
 Focus on the underlying architecture for units, heroes, and powers.
-- **Unit Data Structure** (Linked to Req 1): Implement `Resource`-based units (Alien, Hero, Human) with stats, rarity, and ability slots. Support visual scaling for large-scale battles. (Priority: High)
+- **Unit Data Structure** (Linked to Req 1): Implement `Resource`-based units (Alien, Hero, Human) with stats, rarity, and ability slots. Established technological superiority (3x stats) for Aliens vs Humans. Support visual scaling for large-scale battles. (Priority: High)
 - **Hero & Power Data** (Linked to Req 4, 5): Define data structures for heroes and the powers they yield. (Priority: High)
 - **Basic Persistence** (Linked to Req 1): Save/Load system for unit collection and permanent upgrades. (Priority: Medium)
 - **Sprite Standard** (Linked to Req 2): Establish a consistent sprite size (64x64) and create placeholder assets for development. (Priority: High)
@@ -13,7 +13,7 @@ Focus on the underlying architecture for units, heroes, and powers.
 ## Phase 2: Isometric Combat Engine
 Develop the automatic battle system.
 - **Isometric Grid & Navigation** (Linked to Req 2): Basic environment for units to move in. (Priority: High)
-- **Unit AI (Melee/Ranged)** (Linked to Req 2): Implement the behavior trees or state machines for automatic combat. (Priority: High)
+- **Unit AI (Melee/Ranged)** (Linked to Req 2): Implement the behavior trees or state machines for automatic combat. Added organic movement variations (speed, offsets, async updates) for natural behavior. (Priority: High)
 - **Combat Logic** (Linked to Req 2): Damage calculation, health management, and victory conditions. Includes visual feedback (Shader-based flash) and modular `HealthComponent` with knockback mechanics. (Priority: High) [DONE]
 
 ## Phase 3: World Map & Invasion Loop

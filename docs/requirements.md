@@ -5,7 +5,8 @@
 
 ## 1. Unit & Card System
 1. **User Story:** As a player, I want to collect and manage diverse alien units so that I can build a specialized squad for different planetary invasions.
-   - **Acceptance Criteria:** WHEN viewing the collection THEN the system SHALL display each unit's name, rarity (Common to Mythic), stats (HP, Attack, Defense, Speed, Element, Attack Range, Visual Scale), and special abilities.
+   - **Acceptance Criteria:** WHEN viewing the collection THEN the system SHALL display each unit's name, rarity (Common to Mythic), stats (HP, Attack, Defense, Speed, Element, Attack Range, Visual Scale, Knockback Force), and special abilities.
+   - **Acceptance Criteria:** WHEN comparing units THEN the system SHALL ensure Alien units have significantly higher base technology/stats (approx. 3x) compared to standard Human military units.
    - **Acceptance Criteria:** WHEN a unit is acquired THEN it SHALL be stored in a persistent collection.
    - **Acceptance Criteria:** WHEN a power is applied THEN it SHALL permanently modify the unit's attributes or behavior.
    - **Acceptance Criteria:** WHEN units are displayed in combat THEN the system SHALL respect their individual visual scaling (e.g., humans smaller than heroes).

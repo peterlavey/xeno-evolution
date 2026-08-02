@@ -68,14 +68,41 @@ func setup_real_battle():
 	hero.add_to_group("units")
 	units_node.add_child(hero)
 	
-		# The Human Army (29 soldiers)
+	# The Human Army (Mix of Soldiers, Tanks, and Snipers)
 	for i in range(29):
-		var human_data = human_res.new()
-		human_data.unit_name = "Soldier " + str(i + 1)
-		human_data.max_hp = 40
-		human_data.attack = 5
-		human_data.visual_scale = 0.5
-		human_data.knockback_force = 20.0
+		var human_data
+		var unit_type = i % 3
+		
+		match unit_type:
+			0: # Soldier
+				human_data = human_res.new()
+				human_data.unit_name = "Soldier " + str(i + 1)
+				human_data.max_hp = 40
+				human_data.attack = 5
+				human_data.attack_range = 50.0 # Meleeish/Short range
+				human_data.visual_scale = 0.5
+				human_data.knockback_force = 20.0
+				human_data.battle_modulate = Color(0.8, 0.8, 0.8) # Gris
+			1: # Tank
+				human_data = human_res.new()
+				human_data.unit_name = "Tank " + str(i + 1)
+				human_data.max_hp = 150
+				human_data.attack = 15
+				human_data.attack_range = 250.0
+				human_data.visual_scale = 0.8
+				human_data.knockback_force = 100.0
+				human_data.is_explosive = true
+				human_data.explosion_radius = 120.0
+				human_data.battle_modulate = Color(0.2, 0.5, 0.2) # Verde militar
+			2: # Sniper
+				human_data = human_res.new()
+				human_data.unit_name = "Sniper " + str(i + 1)
+				human_data.max_hp = 30
+				human_data.attack = 20
+				human_data.attack_range = 600.0
+				human_data.visual_scale = 0.45
+				human_data.knockback_force = 40.0
+				human_data.battle_modulate = Color(0.5, 0.5, 0.8) # Azulado
 		
 		var soldier = unit_scene.instantiate()
 		soldier.data = human_data
@@ -87,7 +114,7 @@ func setup_real_battle():
 		soldier.add_to_group("units")
 		units_node.add_child(soldier)
 	
-	print("CombatTest: Spawned 30 Aliens vs 1 Hero and 29 Human Soldiers")
+	print("CombatTest: Spawned 30 Aliens vs 1 Hero and 29 Specialized Human Units")
 
 func _process(_delta):
 	check_battle_status()
@@ -116,12 +143,12 @@ func check_battle_status():
 		GameManager.finish_invasion(false)
 
 func setup_mock_battle():
-	# Crear recursos de prueba
+	# Crear recursos de prueba (Aliens buffeados)
 	var alien_data = alien_res.new()
 	alien_data.unit_name = "Xenomorph Test"
-	alien_data.max_hp = 100
-	alien_data.attack = 10
-	alien_data.knockback_force = 50.0
+	alien_data.max_hp = 150
+	alien_data.attack = 15
+	alien_data.knockback_force = 60.0
 	
 	var hero_data = hero_res.new()
 	hero_data.hero_name = "Archer Hero"

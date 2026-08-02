@@ -11,3 +11,7 @@ class_name HumanUnit
 @export var knockback_force: float = 20.0
 @export var battle_sprite: Texture2D
 @export var battle_modulate: Color = Color.WHITE
+
+# Nuevas propiedades para tipos de ataque
+@export var is_explosive: bool = false
+@export var explosion_radius: float = 100.0

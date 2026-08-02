@@ -15,6 +15,11 @@ enum State { IDLE, SEEKING, ATTACKING, KITING, DEAD }
 var current_state: State = State.IDLE
 var current_hp: int = 0
 var target: BattleUnit = null
+var team: String = ""
+var speed_variation: float = 1.0
+var update_timer: float = 0.0
+var update_interval: float = 0.2
+var target_offset: Vector2 = Vector2.ZERO
 
 var min_ranged_dist = 150.0
 
@@ -60,11 +65,18 @@ func _ready():
 	
 	# Configurar colisiones segun equipo
 	if is_hero:
+		team = "Hero"
 		set_collision_layer_value(2, true) # Layer 2: Heroes
 		set_collision_mask_value(1, true)  # Mask 1: Aliens
 	else:
+		team = "Alien"
 		set_collision_layer_value(1, true) # Layer 1: Aliens
 		set_collision_mask_value(2, true)  # Mask 2: Heroes
+	
+	# Variación de velocidad y tiempo de actualización
+	speed_variation = randf_range(0.85, 1.15)
+	update_interval = randf_range(0.15, 0.4)
+	target_offset = Vector2(randf_range(-30, 30), randf_range(-30, 30))
 	
 	current_state = State.SEEKING
 
@@ -136,24 +148,41 @@ func find_target():
 		target = closest_target
 		current_state = State.SEEKING
 
-func move_towards_target(_delta):
-	navigation_agent.target_position = target.global_position
+func move_towards_target(delta):
+	update_timer += delta
+	if update_timer >= update_interval:
+		navigation_agent.target_position = target.global_position + target_offset
+		update_timer = 0.0
+		# Cambiar el offset ocasionalmente para que el movimiento sea fluido pero no rígido
+		if randf() < 0.2:
+			target_offset = Vector2(randf_range(-40, 40), randf_range(-40, 40))
+			
 	if navigation_agent.is_navigation_finished():
 		return
 		
 	var next_path_pos = navigation_agent.get_next_path_position()
-	var new_velocity = global_position.direction_to(next_path_pos) * speed
-	velocity += new_velocity
+	var move_speed = speed * speed_variation
+	
+	# Añadir un pequeño jitter al movimiento
+	var jitter = Vector2(randf_range(-5, 5), randf_range(-5, 5))
+	var new_velocity = (global_position.direction_to(next_path_pos) * move_speed) + jitter
+	
+	velocity = velocity.lerp(new_velocity, 0.1)
 	move_and_slide()
 
-func move_away_from_target(_delta):
-	var dir = target.global_position.direction_to(global_position)
-	var escape_pos = global_position + dir * 100
-	navigation_agent.target_position = escape_pos
-	
+func move_away_from_target(delta):
+	update_timer += delta
+	if update_timer >= update_interval:
+		var dir = target.global_position.direction_to(global_position)
+		var escape_pos = global_position + dir * 150 + target_offset
+		navigation_agent.target_position = escape_pos
+		update_timer = 0.0
+		
 	var next_path_pos = navigation_agent.get_next_path_position()
-	var new_velocity = global_position.direction_to(next_path_pos) * speed
-	velocity += new_velocity
+	var move_speed = speed * speed_variation
+	var new_velocity = global_position.direction_to(next_path_pos) * move_speed
+	
+	velocity = velocity.lerp(new_velocity, 0.1)
 	move_and_slide()
 
 var attack_cooldown = 1.0
@@ -194,7 +223,14 @@ func shoot_projectile(damage: int):
 			proj.knockback_force = k_force
 		if "attacker_pos" in proj:
 			proj.attacker_pos = global_position
-			
+		proj.team = team
+		
+		# Configuración explosiva si aplica
+		if "is_explosive" in data and data.is_explosive:
+			proj.is_explosive = true
+			if "explosion_radius" in data:
+				proj.explosion_radius = data.explosion_radius
+		
 		get_parent().add_child(proj)
 		print("%s dispara a %s causando %d de daño (Ranged)" % [get_unit_name(), target.get_unit_name(), damage])
 
