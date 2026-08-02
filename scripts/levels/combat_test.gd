@@ -58,6 +58,7 @@ func setup_real_battle():
 	hero_data.max_hp = 200
 	hero_data.attack = 25
 	hero_data.visual_scale = 0.8
+	hero_data.knockback_force = 120.0 # Héroe tiene mucho empuje
 	hero_data.battle_modulate = Color(1.0, 0.8, 0.0) # Dorado para diferenciarlo
 	
 	var hero = unit_scene.instantiate()
@@ -67,13 +68,14 @@ func setup_real_battle():
 	hero.add_to_group("units")
 	units_node.add_child(hero)
 	
-	# The Human Army (29 soldiers)
+		# The Human Army (29 soldiers)
 	for i in range(29):
 		var human_data = human_res.new()
 		human_data.unit_name = "Soldier " + str(i + 1)
 		human_data.max_hp = 40
 		human_data.attack = 5
 		human_data.visual_scale = 0.5
+		human_data.knockback_force = 20.0
 		
 		var soldier = unit_scene.instantiate()
 		soldier.data = human_data
@@ -117,13 +119,15 @@ func setup_mock_battle():
 	# Crear recursos de prueba
 	var alien_data = alien_res.new()
 	alien_data.unit_name = "Xenomorph Test"
-	alien_data.max_hp = 50
+	alien_data.max_hp = 100
 	alien_data.attack = 10
+	alien_data.knockback_force = 50.0
 	
 	var hero_data = hero_res.new()
 	hero_data.hero_name = "Archer Hero"
 	hero_data.max_hp = 80
 	hero_data.attack = 8
+	hero_data.knockback_force = 60.0
 	
 	# Instanciar unidades
 	var alien = unit_scene.instantiate()

@@ -20,8 +20,16 @@ var min_ranged_dist = 150.0
 
 func _ready():
 	if data:
-		current_hp = data.max_hp
 		attack_range = data.attack_range
+		
+		if $HealthComponent:
+			$HealthComponent.max_health = data.max_hp
+			$HealthComponent.current_health = data.max_hp
+			if "knockback_force" in data:
+				$HealthComponent.knockback_force = data.knockback_force
+			$HealthComponent.sprite = sprite
+			$HealthComponent.on_death.connect(die)
+			$HealthComponent.on_damaged.connect(_on_health_damaged)
 		
 		# Aplicar escala visual si existe
 		if "visual_scale" in data:
@@ -63,7 +71,9 @@ func _ready():
 func _physics_process(delta):
 	if current_state == State.DEAD:
 		return
-		
+	
+	velocity = Vector2.ZERO
+	
 	match current_state:
 		State.IDLE:
 			find_target()
@@ -133,7 +143,7 @@ func move_towards_target(_delta):
 		
 	var next_path_pos = navigation_agent.get_next_path_position()
 	var new_velocity = global_position.direction_to(next_path_pos) * speed
-	velocity = new_velocity
+	velocity += new_velocity
 	move_and_slide()
 
 func move_away_from_target(_delta):
@@ -143,7 +153,7 @@ func move_away_from_target(_delta):
 	
 	var next_path_pos = navigation_agent.get_next_path_position()
 	var new_velocity = global_position.direction_to(next_path_pos) * speed
-	velocity = new_velocity
+	velocity += new_velocity
 	move_and_slide()
 
 var attack_cooldown = 1.0
@@ -161,7 +171,10 @@ func perform_attack(delta):
 				shoot_projectile(damage)
 			else:
 				print("%s ataca a %s causando %d de daño (Melee)" % [get_unit_name(), target.get_unit_name(), damage])
-				target.take_damage(damage)
+				var k_force = 50.0
+				if data and "knockback_force" in data:
+					k_force = data.knockback_force
+				target.take_damage(damage, global_position, k_force)
 			
 			time_since_last_attack = 0.0
 
@@ -172,14 +185,31 @@ func shoot_projectile(damage: int):
 		proj.target = target
 		proj.direction = global_position.direction_to(target.global_position)
 		proj.global_position = global_position
+		
+		# Pasar fuerza de retroceso al proyectil si es necesario
+		var k_force = 50.0
+		if data and "knockback_force" in data:
+			k_force = data.knockback_force
+		if "knockback_force" in proj:
+			proj.knockback_force = k_force
+		if "attacker_pos" in proj:
+			proj.attacker_pos = global_position
+			
 		get_parent().add_child(proj)
 		print("%s dispara a %s causando %d de daño (Ranged)" % [get_unit_name(), target.get_unit_name(), damage])
 
-func take_damage(amount: int):
-	current_hp -= amount
+func take_damage(amount: int, attacker_pos: Vector2 = Vector2.ZERO, knockback_power: float = -1.0):
+	if $HealthComponent:
+		$HealthComponent.take_damage(amount, attacker_pos, knockback_power)
+	else:
+		# Fallback si no hay componente
+		current_hp -= amount
+		if current_hp <= 0:
+			die()
+
+func _on_health_damaged(amount: int, current_hp_val: int):
+	current_hp = current_hp_val
 	print("%s recibe %d de daño. HP restante: %d" % [get_unit_name(), amount, current_hp])
-	if current_hp <= 0:
-		die()
 
 func die():
 	print("%s ha muerto" % [get_unit_name()])

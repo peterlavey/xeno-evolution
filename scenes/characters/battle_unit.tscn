@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/characters/battle_unit.gd" id="1_battle_unit"]
+[ext_resource type="Shader" path="res://assets/shaders/hit_flash.gdshader" id="2_shader"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="3_health_comp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
+resource_local_to_scene = true
+shader = ExtResource("2_shader")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 20.0
@@ -9,6 +17,11 @@ radius = 20.0
 script = ExtResource("1_battle_unit")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1")
+
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("3_health_comp")
+sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1")

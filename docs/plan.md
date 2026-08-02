@@ -14,7 +14,7 @@ Focus on the underlying architecture for units, heroes, and powers.
 Develop the automatic battle system.
 - **Isometric Grid & Navigation** (Linked to Req 2): Basic environment for units to move in. (Priority: High)
 - **Unit AI (Melee/Ranged)** (Linked to Req 2): Implement the behavior trees or state machines for automatic combat. (Priority: High)
-- **Combat Logic** (Linked to Req 2): Damage calculation, health management, and victory conditions. (Priority: High)
+- **Combat Logic** (Linked to Req 2): Damage calculation, health management, and victory conditions. Includes visual feedback (Shader-based flash) and modular `HealthComponent` with knockback mechanics. (Priority: High) [DONE]
 
 ## Phase 3: World Map & Invasion Loop
 Connect battles to the progression system.

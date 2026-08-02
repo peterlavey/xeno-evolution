@@ -8,5 +8,6 @@ class_name HumanUnit
 @export var speed: int = 8
 @export var attack_range: float = 40.0
 @export var visual_scale: float = 0.5
+@export var knockback_force: float = 20.0
 @export var battle_sprite: Texture2D
 @export var battle_modulate: Color = Color.WHITE

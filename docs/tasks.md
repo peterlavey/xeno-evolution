@@ -36,7 +36,7 @@
     - Plan Link: Unit AI (Melee/Ranged)
     - Requirement Link: Req 2
 - [x] **Task 2.4: Combat Health & Damage System**
-    - Description: Logic for units taking damage and dying. Fixed property access error for human units. Added physical collision shapes to units. Added color modulation for unit differentiation.
+    - Description: Implemented modular `HealthComponent` with signals, knockback, and Shader-based white flash effect.
     - Plan Link: Combat Logic
     - Requirement Link: Req 2
 
