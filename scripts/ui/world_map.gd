@@ -10,6 +10,16 @@ var countries: Array[Country] = []
 func _ready():
 	setup_mock_countries()
 	refresh_list()
+	setup_permanent_buttons()
+
+func setup_permanent_buttons():
+	# Botón para ir a la cámara de evolución (ahora siempre visible)
+	if not has_node("VBoxContainer/EvolveButton"):
+		var ev_btn = Button.new()
+		ev_btn.name = "EvolveButton"
+		ev_btn.text = "EVOLUTION CHAMBER"
+		ev_btn.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/evolution_ui.tscn"))
+		$VBoxContainer.add_child(ev_btn)
 
 func setup_mock_countries():
 	var c1 = Country.new()
@@ -38,18 +48,5 @@ func _on_country_selected(country: Country):
 	details_label.text = "Country: %s\nDifficulty: %d\n%s" % [country.country_name, country.difficulty, country.description]
 	print("Selected country: ", country.country_name)
 	
-	# Botón para iniciar la invasión
-	if not has_node("VBoxContainer/InvasionButton"):
-		var inv_btn = Button.new()
-		inv_btn.name = "InvasionButton"
-		inv_btn.text = "INVASION!"
-		inv_btn.pressed.connect(func(): GameManager.start_invasion(country))
-		$VBoxContainer.add_child(inv_btn)
-		
-	# Botón para ir a la cámara de evolución
-	if not has_node("VBoxContainer/EvolveButton"):
-		var ev_btn = Button.new()
-		ev_btn.name = "EvolveButton"
-		ev_btn.text = "EVOLUTION CHAMBER"
-		ev_btn.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/evolution_ui.tscn"))
-		$VBoxContainer.add_child(ev_btn)
+	# Iniciar la invasión inmediatamente al seleccionar el país
+	GameManager.start_invasion(country)

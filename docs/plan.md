@@ -18,8 +18,8 @@ Develop the automatic battle system.
 
 ## Phase 3: World Map & Invasion Loop
 Connect battles to the progression system.
-- **World Map UI** (Linked to Req 3): Country selection and difficulty display. (Priority: Medium) [DONE]
-- **Invasion Flow** (Linked to Req 3): Squad selection -> Battle -> Result. (Priority: Medium) [DONE]
+- **World Map UI** (Linked to Req 3): Country selection and difficulty display. Permanent access to Evolution Chamber. (Priority: Medium) [DONE]
+- **Invasion Flow** (Linked to Req 3): Direct country selection -> Squad selection -> Battle -> Result. (Priority: Medium) [DONE]
 
 ## Phase 4: Abduction & Evolution
 The core loop of stealing and applying powers.

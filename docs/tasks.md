@@ -42,11 +42,11 @@
 
 ## Phase 3: World & Progression
 - [x] **Task 3.1: Country Data & Map UI**
-    - Description: Create Resources for countries and a simple map interface.
+    - Description: Create Resources for countries and a simple map interface. Always-visible Evolution button and direct invasion start.
     - Plan Link: World Map UI
     - Requirement Link: Req 3
 - [x] **Task 3.2: Invasion Flow Logic**
-    - Description: Controller for transitioning between Map, Squad Select, and Battle.
+    - Description: Controller for transitioning between Map, Squad Select, and Battle. Removed intermediate confirmation button.
     - Plan Link: Invasion Flow
     - Requirement Link: Req 3
 
