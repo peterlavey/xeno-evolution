@@ -89,3 +89,29 @@
     - Description: Reposition units and camera for top-down vertical combat flow. Player units (Aliens) spawn at bottom, enemies (Humans) at top.
     - Plan Link: Portrait Mode Support
     - Requirement Link: Req 2
+
+## Phase 6: Animation & Game Feel
+- [x] **Task 6.1: Define Character Layering Standard**
+    - Description: Create a specification for sprite separation (Head, Torso, Limbs) and export process for Agente 1.
+    - Plan Link: Visual & Layering Pipeline
+    - Requirement Link: Req 6
+- [x] **Task 6.2: Skeletal Rigging Prototyping**
+    - Description: Setup Skeleton2D and Bone2D for a prototype character. Implement Mesh Deformation with Polygon2D for Agente 2.
+    - Plan Link: Skeletal Rigging & Mesh Deformation
+    - Requirement Link: Req 6
+- [x] **Task 6.3: AnimationTree Integration**
+    - Description: Configure AnimationPlayer and AnimationTree (State Machine) for smooth transitions between Idle, Walk, and Attack.
+    - Plan Link: Skeletal Rigging & Mesh Deformation
+    - Requirement Link: Req 6
+- [x] **Task 6.4: Impact & Game Feel Components**
+    - Description: Implement GDScript for Squash & Stretch (reactive and procedural), Screen Shake, and White Flash using shaders on impact.
+    - Plan Link: Interactive Physics & Game Feel
+    - Requirement Link: Req 6
+- [x] **Task 6.5: Ragdoll2D System**
+    - Description: Implement a Ragdoll system using PinJoint2D and RigidBody2D for unit deaths. Added dynamic bone matching logic.
+    - Plan Link: Interactive Physics & Game Feel
+    - Requirement Link: Req 6
+- [x] **Task 6.6: Technical Sprite Breakdown for Prototype Alien**
+    - Description: Detailed layer analysis, pivot points, and Z-index definition for the first animated unit.
+    - Plan Link: Visual & Layering Pipeline
+    - Requirement Link: Req 6

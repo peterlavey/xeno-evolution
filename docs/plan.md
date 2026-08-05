@@ -31,6 +31,12 @@ The core loop of stealing and applying powers.
 Adapt the game for vertical mobile devices.
 - **Portrait Mode Support** (Linked to Req 2): Configure project for 720x1280 resolution and adjust combat layouts for vertical flow. (Priority: Medium) [DONE]
 
+## Phase 6: Visual Excellence & Game Feel
+Implement the advanced 2D animation pipeline and interactive physics.
+- **Visual & Layering Pipeline** (Linked to Req 6): Establish layer separation standards for 2D sprites to support rigging. (Priority: High)
+- **Skeletal Rigging & Mesh Deformation** (Linked to Req 6): Implement `Skeleton2D` rigs with `Polygon2D` meshes for fluid character movement. (Priority: High)
+- **Interactive Physics & Game Feel** (Linked to Req 6): Develop GDScript components for Squash & Stretch, Ragdoll, and impact effects (Shake/Flash/Particles). (Priority: High)
+
 ## Dependencies & Risks
 - **Dependency**: Unit AI depends on a functional isometric navigation system.
 - **Risk**: Balancing the power extraction success rates to maintain long-term engagement.

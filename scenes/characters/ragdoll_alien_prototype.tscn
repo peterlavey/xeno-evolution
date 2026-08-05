@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://ragdoll_alien_proto"]
+[ext_resource type="Script" path="res://scripts/components/animation/ragdoll_instance.gd" id="1_script"]
+
+[node name="RagdollAlien" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Hip" type="RigidBody2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hip"]
+# Configured in editor
+
+[node name="Torso" type="RigidBody2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Torso"]
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+
+[node name="Head" type="RigidBody2D" parent="."]
+position = Vector2(0, -45)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Head"]
+node_a = NodePath("../../Torso")
+node_b = NodePath("..")
+
+# Rest of the limbs follow the same pattern...

@@ -1,0 +1,234 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1x2y3z4w5v6"]
+
+[ext_resource type="Script" path="res://scripts/components/animation/game_feel_component.gd" id="1_script"]
+
+[ext_resource type="Shader" path="res://assets/shaders/hit_flash.gdshader" id="2_shader"]
+[ext_resource type="PackedScene" uid="uid://ragdoll_alien_proto" path="res://scenes/characters/ragdoll_alien_prototype.tscn" id="3_ragdoll"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_flash"]
+shader = ExtResource("2_shader")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[node name="PrototypeAlien" type="Node2D"]
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="Visuals"]
+
+[node name="Hip" type="Bone2D" parent="Visuals/Skeleton2D"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Torso" type="Bone2D" parent="Visuals/Skeleton2D/Hip"]
+position = Vector2(0, -20)
+rest = Transform2D(1, 0, 0, 1, 0, -20)
+
+[node name="Head" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso"]
+position = Vector2(0, -25)
+rest = Transform2D(1, 0, 0, 1, 0, -25)
+
+[node name="Shoulder_R" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso"]
+position = Vector2(15, -15)
+rest = Transform2D(1, 0, 0, 1, 15, -15)
+
+[node name="Arm_R_Up" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso/Shoulder_R"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Arm_R_Low" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso/Shoulder_R/Arm_R_Up"]
+position = Vector2(0, 15)
+rest = Transform2D(1, 0, 0, 1, 0, 15)
+
+[node name="Hand_R" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso/Shoulder_R/Arm_R_Up/Arm_R_Low"]
+position = Vector2(0, 10)
+rest = Transform2D(1, 0, 0, 1, 0, 10)
+
+[node name="Shoulder_L" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso"]
+position = Vector2(-15, -15)
+rest = Transform2D(1, 0, 0, 1, -15, -15)
+
+[node name="Arm_L_Up" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso/Shoulder_L"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Arm_L_Low" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso/Shoulder_L/Arm_L_Up"]
+position = Vector2(0, 15)
+rest = Transform2D(1, 0, 0, 1, 0, 15)
+
+[node name="Hand_L" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Torso/Shoulder_L/Arm_L_Up/Arm_L_Low"]
+position = Vector2(0, 10)
+rest = Transform2D(1, 0, 0, 1, 0, 10)
+
+[node name="Thigh_R" type="Bone2D" parent="Visuals/Skeleton2D/Hip"]
+position = Vector2(10, 5)
+rest = Transform2D(1, 0, 0, 1, 10, 5)
+
+[node name="Leg_R_Up" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Thigh_R"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Leg_R_Low" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Thigh_R/Leg_R_Up"]
+position = Vector2(0, 20)
+rest = Transform2D(1, 0, 0, 1, 0, 20)
+
+[node name="Foot_R" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Thigh_R/Leg_R_Up/Leg_R_Low"]
+position = Vector2(0, 10)
+rest = Transform2D(1, 0, 0, 1, 0, 10)
+
+[node name="Thigh_L" type="Bone2D" parent="Visuals/Skeleton2D/Hip"]
+position = Vector2(-10, 5)
+rest = Transform2D(1, 0, 0, 1, -10, 5)
+
+[node name="Leg_L_Up" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Thigh_L"]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Leg_L_Low" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Thigh_L/Leg_L_Up"]
+position = Vector2(0, 20)
+rest = Transform2D(1, 0, 0, 1, 0, 20)
+
+[node name="Foot_L" type="Bone2D" parent="Visuals/Skeleton2D/Hip/Thigh_L/Leg_L_Up/Leg_L_Low"]
+position = Vector2(0, 10)
+rest = Transform2D(1, 0, 0, 1, 0, 10)
+
+[node name="Sprites" type="Node2D" parent="Visuals"]
+
+[node name="Torso" type="Sprite2D" parent="Visuals/Sprites"]
+material = SubResource("ShaderMaterial_flash")
+z_index = 0
+
+[node name="Head" type="Sprite2D" parent="Visuals/Sprites"]
+material = SubResource("ShaderMaterial_flash")
+z_index = 10
+
+[node name="Arm_R_Up" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = 5
+
+[node name="Arm_R_Low" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = 4
+
+[node name="Hand_R" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = 6
+
+[node name="Arm_L_Up" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = -5
+
+[node name="Arm_L_Low" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = -6
+
+[node name="Hand_L" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = -4
+
+[node name="Leg_R_Up" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = 2
+
+[node name="Leg_R_Low" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = 1
+
+[node name="Foot_R" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = 3
+
+[node name="Leg_L_Up" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = -2
+
+[node name="Leg_L_Low" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = -3
+
+[node name="Foot_L" type="Sprite2D" parent="Visuals/Sprites"]
+z_index = -1
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Skeleton2D/Hip/Torso:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -20), Vector2(0, -22), Vector2(0, -20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Skeleton2D/Hip/Torso/Head:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.1, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_walk"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Skeleton2D/Hip/Thigh_R/Leg_R_Up:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.5, 0.0, -0.5, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Skeleton2D/Hip/Thigh_L/Leg_L_Up:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.5, 0.0, 0.5, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_alien"]
+_data = {
+"idle": SubResource("Animation_idle"),
+"walk": SubResource("Animation_walk")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_alien")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_idle"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_walk"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_idle_to_walk"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_walk_to_idle"]
+advance_mode = 2
+advance_condition = &"is_idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_alien"]
+states/idle/node = AnimationNodeAnimation_idle
+states/idle/position = Vector2(350, 100)
+states/walk/node = AnimationNodeAnimation_walk
+states/walk/position = Vector2(550, 100)
+transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_idle_to_walk"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_walk_to_idle")]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_alien")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_idle = false
+parameters/conditions/is_moving = false
+
+[node name="GameFeelComponent" type="Node2D" parent="."]
+script = ExtResource("1_script")
+ragdoll_scene = ExtResource("3_ragdoll")

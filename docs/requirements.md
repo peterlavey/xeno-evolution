@@ -33,3 +33,10 @@
    - **Acceptance Criteria:** WHEN attempting extraction THEN the system SHALL calculate success based on power rarity, hero level, and alien technology upgrades.
    - **Acceptance Criteria:** WHEN an extraction is successful THEN the player SHALL be able to assign the power to a compatible alien unit permanently.
    - **Acceptance Criteria:** WHEN a power is assigned THEN the unit's metadata SHALL be updated to reflect the new ability (e.g., adding "Flight" or "Fire Resistance").
+
+ ## 6. Animation & Game Feel Pipeline
+ 6. **User Story:** As a developer, I want a structured pipeline to create high-quality 2D animated characters with interactive physics so that the game feels dynamic and impactful.
+    - **Acceptance Criteria:** WHEN a character is created THEN it SHALL use skeletal animation (Skeleton2D/Bone2D) with Mesh Deformation (Polygon2D).
+    - **Acceptance Criteria:** WHEN a character moves or takes damage THEN it SHALL exhibit Squash & Stretch and reactive physics (Ragdoll2D/AddForce).
+    - **Acceptance Criteria:** WHEN impacts occur THEN the system SHALL trigger Game Feel effects (Screen Shake, Particle systems, White Flash).
+    - **Acceptance Criteria:** WHEN exporting assets THEN they SHALL be separated into layers compatible with the rigging system.
